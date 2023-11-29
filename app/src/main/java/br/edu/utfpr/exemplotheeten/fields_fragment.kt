@@ -39,32 +39,36 @@ class fields_fragment : Fragment() {
     }
 
     fun calculaData(){
-        val datePrimaria: LocalDate =  LocalDate.parse(dataPrimaria.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        val dateSecundaria: LocalDate =  LocalDate.parse(dataSecundaria.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        val horaPrimaria: LocalTime =  LocalTime.parse(horaPrimaria.text.toString(), DateTimeFormatter.ofPattern("HH:mm"))
-        val horaSecundaria: LocalTime =  LocalTime.parse(horaSecundaria.text.toString(), DateTimeFormatter.ofPattern("HH:mm"))
+        val datePrimaria: LocalDate =
+            LocalDate.parse(dataPrimaria.text.toString(),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 
-        val dateTimePrimario: LocalDateTime = LocalDateTime.of(datePrimaria, horaPrimaria)
-        val dateTimeSecundaria: LocalDateTime = LocalDateTime.of(dateSecundaria, horaSecundaria)
+        val dateSecundaria: LocalDate =
+            LocalDate.parse(dataSecundaria.text.toString(),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 
-        dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.MONTHS)
+        val horaPrimaria: LocalTime =
+            LocalTime.parse(horaPrimaria.text.toString(),
+                DateTimeFormatter.ofPattern("HH:mm"))
 
-        /* Fazer o cálculo pelo períod ou pelo until chegam no mesmo valor, mas o period não leva em consideração as horas.*/
+        val horaSecundaria: LocalTime =
+            LocalTime.parse(horaSecundaria.text.toString(),
+                DateTimeFormatter.ofPattern("HH:mm"))
+
+        val dateTimePrimario: LocalDateTime =
+            LocalDateTime.of(datePrimaria, horaPrimaria)
+
+        val dateTimeSecundaria: LocalDateTime =
+            LocalDateTime.of(dateSecundaria, horaSecundaria)
+
         val period = Period.between(datePrimaria, dateSecundaria)
 
         val builder = getActivity()?.let { AlertDialog.Builder(it) }
         builder?.setTitle("Tempo Passado")
-        builder?.setMessage("Anos passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.YEARS)}, Meses passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.MONTHS)}, Dias Passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.DAYS)}")
+        builder?.setMessage("Anos passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.YEARS)}," +
+                            " Meses passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.MONTHS)}, " +
+                            "Dias Passados: ${dateTimePrimario.until(dateTimeSecundaria, ChronoUnit.DAYS)}")
         builder?.show()
     }
 
-    companion object {
-        fun newInstance(callback: () -> Unit): fields_fragment {
-            val f = fields_fragment()
-
-
-
-            return f
-        }
-    }
 }

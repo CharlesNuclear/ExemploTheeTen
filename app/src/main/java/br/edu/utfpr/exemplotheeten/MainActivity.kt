@@ -8,17 +8,12 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 
 class MainActivity : AppCompatActivity() {
     private lateinit var fieldsFragment: fields_fragment
-    private lateinit var dataPickerFragment: DataPickerFragment
-    private lateinit var timepickerFragment: timepicker_fragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AndroidThreeTen.init(this);
 
         fieldsFragment = fields_fragment()
-        timepickerFragment = timepicker_fragment()
-
 
         setFragment(fieldsFragment)
     }
